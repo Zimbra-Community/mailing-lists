@@ -1,0 +1,6 @@
+#!/bin/bash
+/usr/local/sbin/add_distributionlists
+java -jar /usr/local/sbin/processor.jar
+date >> /var/log/mailinglists.log
+cat /usr/local/sbin/mailinglistrun.txt >> /var/log/mailinglists.log
+/opt/zimbra/bin/zmprov < /usr/local/sbin/mailinglistrun.txt

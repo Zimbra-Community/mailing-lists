@@ -1,0 +1,5 @@
+#!/bin/bash
+INSERTFILE="$(mktemp /tmp/mailinglists-add_dls.XXXXXXXX.sql)"
+/opt/zimbra/bin/zmprov -l gadl |sed -e 's/^\(.*\)$/INSERT IGNORE INTO list_properties (list_email) VALUES ("\1");/' > "${INSERTFILE}"
+/opt/zimbra/bin/mysql mailinglists < "${INSERTFILE}"
+rm -f "${INSERTFILE}"

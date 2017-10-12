@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="mailapi-1.6.0">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/mailapi-1.6.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/javax.mail-1.6.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/javax.mail-api-1.6.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/smtp-1.6.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/logging-mailhandler-1.6.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
