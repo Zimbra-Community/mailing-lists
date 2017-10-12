@@ -68,7 +68,7 @@ public class Main {
                 stmt = connection.prepareStatement("delete from list_confirmations where (email,list_email) not in (select email,list_email from list_actions);");
                 stmt.executeQuery();
 
-                stmt = connection.prepareStatement("select list_actions.email, list_actions.list_email, list_actions.action, list_actions.approved, list_actions.reject, list_confirmations.confirmation, template.fromEmail, template.subject, template.body from list_actions inner join list_confirmations on list_actions.email = list_confirmations.email and list_actions.list_email = list_confirmations.list_email left outer join template on 1=1 where list_actions.approved = '1' AND list_confirmations.confirmation <> '1' AND list_actions.email IN (select * from mailer);");
+                stmt = connection.prepareStatement("select list_actions.email, list_actions.list_email, list_actions.action, list_actions.approved, list_actions.reject, list_confirmations.confirmation, template.fromEmail, template.subject, template.body from list_actions inner join list_confirmations on list_actions.email = list_confirmations.email and list_actions.list_email = list_confirmations.list_email left outer join template on 1=1 where list_confirmations.confirmation <> '1' AND list_actions.email IN (select * from mailer);");
                 sqlresult = null;
                 sqlresult = stmt.executeQuery();
                 while (sqlresult.next()) {
