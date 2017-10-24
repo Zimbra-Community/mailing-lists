@@ -100,12 +100,14 @@ echo "Setting up cron"
 echo "0,10,20,30,40,50 * * * * root bash -l -c '/usr/local/sbin/process_mailinglists' >/var/log/process_mailinglists_cron.log" > /etc/cron.d/process_mailinglists
 
 echo "--------------------------------------------------------------------------------------------------------------
-Mailinglists installed successful, the following is installed:
---
+Mailinglists installed successful
 
 For your reference:
 - Database mailinglists and user have been created using: 
   ${MAILINGLISTDBCREATE}
+
+You can protect your mailinglist against DDOS by following:
+https://github.com/Zimbra-Community/mailing-lists/wiki/DDOS-protection
 
 To activate your configuration, run as zimbra user:
 su - zimbra -c \"zmmailboxdctl restart\"
