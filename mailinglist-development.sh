@@ -80,6 +80,10 @@ rm -f /usr/local/sbin/add_distributionlists
 cp bin/add_distributionlists /usr/local/sbin/add_distributionlists
 chmod +rx /usr/local/sbin/add_distributionlists
 
+rm -f /usr/local/sbin/process_mailinglists
+cp bin/process_mailinglists /usr/local/sbin/process_mailinglists
+chmod +rx /usr/local/sbin/process_mailinglists
+
 echo "Deploy admin Zimlet"
 su - zimbra -c "zmzimletctl undeploy tk_barrydegraaff_mailinglists_admin"
 rm -f /tmp/tk_barrydegraaff_mailinglists_admin.zip
