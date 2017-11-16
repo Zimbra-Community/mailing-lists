@@ -29,8 +29,8 @@ Use the automated installer:
 ![alt tag](https://raw.githubusercontent.com/Zimbra-Community/mailing-lists/master/help/public-page.png)
 
 ### Screenshot of Admin Zimlet
-![alt tag](https://github.com/Zimbra-Community/mailing-lists/blob/master/help/admin-ui1.png?1)
-![alt tag](https://github.com/Zimbra-Community/mailing-lists/blob/master/help/admin-ui2.png?2)
+![alt tag](https://raw.githubusercontent.com/Zimbra-Community/mailing-lists/master/help/admin-ui1.png?11)
+![alt tag](https://raw.githubusercontent.com/Zimbra-Community/mailing-lists/master/help/admin-ui2.png?22)
 
 ### Screenshot of Confirmation Email
 ![alt tag](https://raw.githubusercontent.com/Zimbra-Community/mailing-lists/master/help/confirmation-mail.png)
