@@ -31,6 +31,29 @@ if [ "$(id -u)" != "0" ]; then
    exit 1
 fi
 
+echo "Check if git and ant are installed."
+set +e
+YUM_CMD=$(which yum)
+APT_CMD=$(which apt-get)
+GIT_CMD=$(which git)
+ANT_CMD=$(which ant)
+ZIP_CMD=$(which zip)
+set -e 
+
+if [[ -z $GIT_CMD ]] || [[ -z $ZIP_CMD ]]; then
+   if [[ ! -z $YUM_CMD ]]; then
+      yum install -y git zip
+   else
+      apt-get install -y git zip
+   fi
+fi
+
+TMPFOLDER="$(mktemp -d /tmp/mailinglists-installer.XXXXXXXX)"
+echo "Download Zimbra Mailinglists to $TMPFOLDER"
+cd $TMPFOLDER
+git clone --depth=1 https://github.com/Zimbra-Community/mailing-lists
+cd mailing-lists
+
 MAILINGLIST_PWD=$(< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c${1:-10};echo;)
 
 # creating a user, just to make sure we have one (for mysql on CentOS 6, so we can execute the next mysql queries w/o errors)
@@ -96,6 +119,8 @@ su - zimbra -c "zmzimletctl deploy /tmp/tk_barrydegraaff_mailinglists_admin.zip"
 rm -f /usr/local/sbin/processor.jar
 cp processor/out/artifacts/processor_jar/processor.jar /usr/local/sbin/processor.jar
 
+rm -Rf $TMPFOLDER
+
 echo "Setting up cron"
 echo "0,10,20,30,40,50 * * * * root bash -l -c '/usr/local/sbin/process_mailinglists' >/var/log/process_mailinglists_cron.log" > /etc/cron.d/process_mailinglists
 
@@ -108,6 +133,9 @@ For your reference:
 
 You can protect your mailinglist against DDOS by following:
 https://github.com/Zimbra-Community/mailing-lists/wiki/DDOS-protection
+
+If you have external recipients or issues with mail going to spam/junk:
+https://github.com/Zimbra-Community/mailing-lists/wiki/Set-mailing-list-email-headers-with-Milter
 
 To activate your configuration, run as zimbra user:
 su - zimbra -c \"zmmailboxdctl restart\"
