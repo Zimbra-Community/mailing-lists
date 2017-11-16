@@ -4,12 +4,13 @@ This wiki page shows how to work around the problem of mail going to junk/spam f
 By default Zimbra distribution lists do not set appropriate e-mail headers. This wiki page shows how to use Milter (a Python based extension for Postfix) to add/replace some headers to make Zimbra distribution lists act as mailing lists. In addition it is showed how you can enforce posting restrictions.
 
 The following headers will be added/replaced:
-Reply-To: testdl@mail.zetalliance.org
-Precedence: list
-List-Id: testdl@mail.zetalliance.org
-List-Post: <mailto:testdl@mail.zetalliance.org>
-Errors-To: bounces@mail.zetalliance.org
-Sender: bounces@mail.zetalliance.org
+
+Reply-To: testdl@mail.zetalliance.org  
+Precedence: list  
+List-Id: testdl@mail.zetalliance.org  
+List-Post: <mailto:testdl@mail.zetalliance.org>  
+Errors-To: bounces@mail.zetalliance.org  
+Sender: bounces@mail.zetalliance.org  
 
 On the CLI:
 
@@ -19,9 +20,9 @@ On the CLI:
      mkdir - p /opt/zimbra_mailinglists_milter
      cd /opt/zimbra_mailinglists_milter
      wget https://raw.githubusercontent.com/Zimbra-Community/mailing-lists/master/milter/zimbra_mailinglists_milter.py -O /opt/zimbra_mailinglists_milter/zimbra_mailinglists_milter.py
-     wget  https://raw.githubusercontent.com/Zimbra-Community/mailing-lists/master/milter/etc/daemon.ini -O /etc/supervisord.d/zimbra_mailinglists_milter.ini
+     wget https://raw.githubusercontent.com/Zimbra-Community/mailing-lists/master/milter/etc/daemon.ini -O /etc/supervisord.d/zimbra_mailinglists_milter.ini
 
-Then use your favorite editor (nano/vim) and open /opt/zimbra_mailinglists_milter/zimbra_mailinglists_milter.py look under `def eob(self , cmdDict)` and change the script to fit your needs. Please be aware that the indentation level of the statements is significant to Python.
+Then use your favorite editor (nano/vim) and open `/opt/zimbra_mailinglists_milter/zimbra_mailinglists_milter.py` look under `def eob(self , cmdDict)` and change the script to fit your needs. Please be aware that the indentation level of the statements is significant to Python.
 
 If you are satisfied, you can enable and start the service.
 
