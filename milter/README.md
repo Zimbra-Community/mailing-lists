@@ -15,7 +15,9 @@ Sender: bounces@mail.zetalliance.org
 On the CLI:
 
      yum install epel-release
-     yum install python-pymilter supervisor
+     yum install python-pip supervisor python-pymilter
+     pip install --upgrade pip     
+     pip install python-libmilter
 
      mkdir - p /opt/zimbra_mailinglists_milter
      cd /opt/zimbra_mailinglists_milter
@@ -26,6 +28,7 @@ Then use your favorite editor (nano/vim) and open `/opt/zimbra_mailinglists_milt
 
 If you are satisfied, you can enable and start the service.
 
+     chmod +rx /opt/zimbra_mailinglists_milter/zimbra_mailinglists_milter.py
      systemctl start supervisord 
      systemctl enable supervisord
      tail -f /var/log/supervisor/supervisord.log
@@ -37,7 +40,7 @@ If it works, enable it for Zimbra:
 
      su - zimbra
      zmprov ms `zmhostname` zimbraMtaSmtpdMilters inet:127.0.0.1:5000
-     #don't need this zmprov ms `zmhostname` zimbraMilterBindPort 5000
+     zmprov ms `zmhostname` zimbraMilterBindPort 5000
      zmprov ms `zmhostname` zimbraMilterServerEnabled TRUE
      zmmtactl reload
 
