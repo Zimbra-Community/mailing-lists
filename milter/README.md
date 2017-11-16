@@ -5,7 +5,7 @@ By default Zimbra distribution lists do not set appropriate e-mail headers. This
 
 The following headers will be added/replaced:
 
-From: testdl@mail.zetalliance.org 
+From: testdl@mail.zetalliance.org  
 Reply-To: testdl@mail.zetalliance.org  
 Precedence: list  
 List-Id: testdl@mail.zetalliance.org  
