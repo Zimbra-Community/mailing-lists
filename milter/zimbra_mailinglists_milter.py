@@ -28,16 +28,28 @@ class MailingListsMilter(lm.ForkMixin , lm.MilterProtocol):
         self.recip = 'RCPT: %s' % recip
         return lm.CONTINUE
 
+    @lm.noReply
+    def mailFrom(self , frAddr , cmdDict):
+        self.frAddr = 'MAIL: %s' % frAddr
+        return lm.CONTINUE
+
     def eob(self , cmdDict):
         if 'testdl@mail.zetalliance.org' in self.recip:
-		self.log('Adding headers for ' + self.recip)
-		self.chgHeader('From' , 'testdl@mail.zetalliance.org' , index=1)
-		self.chgHeader('Reply-To' , 'testdl@mail.zetalliance.org' , index=1)
-		self.chgHeader('Precedence','list', index=1)
-		self.chgHeader('List-Id','testdl@mail.zetalliance.org', index=1)
-		self.chgHeader('List-Post','<mailto:testdl@mail.zetalliance.org>', index=1)
-		self.chgHeader('Errors-To','bounces@mail.zetalliance.org', index=1)
-		self.chgHeader('Sender','bounces@mail.zetalliance.org', index=1)
+
+        # This shows how to restrict senders
+        #    if 'admin@mail.zetalliance.org' not in self.frAddr:
+        #        self.setReply('554' , '5.7.1' , 'Rejected sender is not allowed for posting to this list')
+        #        self.log('Rejected ' + self.frAddr + ' not allowed for posting to ' + self.recip)
+        #        return lm.REJECT
+
+            self.log('Adding headers for ' + self.recip)
+            self.chgHeader('From' , 'testdl@mail.zetalliance.org' , index=1)
+            self.chgHeader('Reply-To' , 'testdl@mail.zetalliance.org' , index=1)
+            self.chgHeader('Precedence','list', index=1)
+            self.chgHeader('List-Id','testdl@mail.zetalliance.org', index=1)
+            self.chgHeader('List-Post','<mailto:testdl@mail.zetalliance.org>', index=1)
+            self.chgHeader('Errors-To','bounces@mail.zetalliance.org', index=1)
+            self.chgHeader('Sender','bounces@mail.zetalliance.org', index=1)
 
         return lm.CONTINUE
 
