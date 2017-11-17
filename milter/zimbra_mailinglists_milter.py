@@ -4,7 +4,7 @@ import libmilter as lm
 import sys , time
 
 # See also:
-# https://stuffivelearned.org/doku.php?id=programm
+# https://stuffivelearned.org/doku.php?id=programming:python:python-libmilter
 # https://github.com/crustymonkey/python-libmilter
 # https://iomarmochtar.wordpress.com/2017/09/13/zimbra-prevent-user-customizing-from-header/
 
