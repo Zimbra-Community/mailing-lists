@@ -57,6 +57,12 @@ class MailingListsMilter(lm.ForkMixin , lm.MilterProtocol):
 
     def eob(self , cmdDict):
         if 'testdl@mail.zetalliance.org' in self.recip:
+#           # This shows how to restrict senders		
+#           if 'admin@mail.zetalliance.org' not in self.frAddr:		
+#               self.setReply('554' , '5.7.1' , 'Rejected sender is not allowed for posting to this list')		
+#               self.log('Rejected ' + self.frAddr + ' not allowed for posting to ' + self.recip)		
+#               return lm.REJECT
+#            # This solution is crap and does not work with SPF"
 #            if 'testdl@mail.zetalliance.org' in self.fromHeader:
 #                self.log('Adding headers for ' + self.recip)
 #                self.chgHeader('From' , 'testdl@mail.zetalliance.org' , index=1)
