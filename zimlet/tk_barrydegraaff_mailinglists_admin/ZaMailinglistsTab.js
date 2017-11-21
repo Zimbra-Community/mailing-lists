@@ -93,6 +93,10 @@ ZaMailinglistsTab.prototype.getListsCallback = function (res) {
       form +=  '</table></form>';
       document.getElementById('ml_DistLists').innerHTML = form;
    }
+   else
+   {
+      document.getElementById('ml_DistLists').innerHTML = 'Nothing here yet, please add a distribution list in Zimbra, wait a minute and reload your browser.';
+   }
 
    result = res.getResponse().Body.mailinglistsResult.page;
    form = "<form id='ml_pageFrm'><table>";
