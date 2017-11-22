@@ -50,7 +50,7 @@ Try sending some emails and:
 
      tail -f /var/log/zimbra_mailinglists_milter.log
 
-MTA not running?
+In case Zimbra says the MTA is not running:
 
 De above settings make Zimbra think it has the built-in Milter running as well, when in fact it is not. 
 At this time I do not know the proper way to configure this. One work-around is, commenting out a section in zmmilterctl:
