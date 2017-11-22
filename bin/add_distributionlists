@@ -7,6 +7,5 @@ INSERTFILE="$(mktemp /tmp/mailinglists-add_dls.XXXXXXXX.sql)"
 /opt/zimbra/bin/zmprov -l gadl | sed "s/.*/'&'/" | paste -sd, > "${INSERTFILE}"
 echo -n "delete from list_properties where list_email not in ($(cat "${INSERTFILE}"));" > "${INSERTFILE}"
 /opt/zimbra/bin/mysql mailinglists < "${INSERTFILE}"
-cat "${INSERTFILE}"
 
 rm -f "${INSERTFILE}"
