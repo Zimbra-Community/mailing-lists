@@ -69,7 +69,7 @@ class MailingListsMilter(lm.ForkMixin , lm.MilterProtocol):
                 return lm.CONTINUE
             else:
                 self.log('Discard original email and make a new one')
-                p = subprocess.Popen(["/opt/zimbra/common/sbin/sendmail", "-t","-f","bounces@mail.zetalliance.org","-F","testdl@mail.zetalliance.org","testdl@mail.zetalliance.org"], stdin=subprocess.PIPE)
+                p = subprocess.Popen(["/usr/sbin/sendmail", "-t","-f","bounces@mail.zetalliance.org","-F","testdl@mail.zetalliance.org","testdl@mail.zetalliance.org"], stdin=subprocess.PIPE)
                 headers = 'To: ' + 'testdl@mail.zetalliance.org' + '\r\n'
                 headers += 'From: ' + 'testdl@mail.zetalliance.org' + '\r\n'
                 headers += 'Reply-To: ' + 'testdl@mail.zetalliance.org' + '\r\n'

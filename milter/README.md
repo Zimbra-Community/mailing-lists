@@ -10,7 +10,7 @@ Its great, because the final message that goes to the recipients is still proces
 On the CLI:
 
      yum install epel-release
-     yum install python-pip supervisor python-pymilter
+     yum install python-pip supervisor python-pymilter sendmail
      pip install --upgrade pip     
      pip install python-libmilter
 
@@ -21,7 +21,13 @@ On the CLI:
 
 Then use your favorite editor (nano/vim) and open `/opt/zimbra_mailinglists_milter/zimbra_mailinglists_milter.py` look under `def eob(self , cmdDict)` and change the script to fit your needs. Please be aware that the indentation level of the statements is significant to Python.
 
-If you are satisfied, you can enable and start the service.
+While Zimbra comes with a built-in sendmail, it's configuration cannot be altered, so we use sendmail from the OS/distro. Configure it by setting 127.0.0.1 after DS to set Zimbra as the Smart Relay for the OS/distro:
+
+     nano /etc/mail/sendmail.cf
+     # "Smart" relay host (may be null)
+     DS127.0.0.1
+
+Enable and start the service.
 
      chmod +rx /opt/zimbra_mailinglists_milter/zimbra_mailinglists_milter.py
      systemctl start supervisord 
@@ -35,6 +41,7 @@ If it works, enable it for Zimbra:
 
      su - zimbra
      zmprov ms `zmhostname` zimbraMtaSmtpdMilters inet:127.0.0.1:5000
+     zmprov ms `zmhostname` zimbraMtaNonSmtpdMilters inet:127.0.0.1:5000
      zmprov ms `zmhostname` zimbraMilterBindPort 5000
      zmprov ms `zmhostname` zimbraMilterServerEnabled TRUE
      zmmtactl reload
