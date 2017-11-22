@@ -20,4 +20,9 @@ fi
 java -jar /usr/local/sbin/processor.jar
 date >> /var/log/mailinglists.log
 cat /usr/local/sbin/mailinglistrun.txt >> /var/log/mailinglists.log
+
+if [ -s /usr/local/sbin/mailinglistrun.txt ]
+then
 /opt/zimbra/bin/zmprov < /usr/local/sbin/mailinglistrun.txt
+fi
+
