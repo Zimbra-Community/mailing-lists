@@ -17,6 +17,7 @@ class MailingListsMilter(lm.ForkMixin , lm.MilterProtocol):
         lm.ForkMixin.__init__(self)
         # You can initialize more stuff here
         self.bodyTxt = ''
+        self.ListProcessed = 'false'
 
     def log(self , msg):
         t = time.strftime('%H:%M:%S')
@@ -39,6 +40,10 @@ class MailingListsMilter(lm.ForkMixin , lm.MilterProtocol):
         if key == 'From':
            self.fromHeader = '%s' % val
 
+        #This message is already processed, we do not discard/rewrite it again
+        if key == 'X-ZMList-Processed':
+           self.ListProcessed = '%s' % val
+
         #Needed to copy from source to new message
         if key == 'Subject':
            self.subjectHeader = 'Subject: %s' % val + '\r\n'
@@ -57,35 +62,25 @@ class MailingListsMilter(lm.ForkMixin , lm.MilterProtocol):
 
     def eob(self , cmdDict):
         if 'testdl@mail.zetalliance.org' in self.recip:
-#           # This shows how to restrict senders		
-#           if 'admin@mail.zetalliance.org' not in self.frAddr:		
-#               self.setReply('554' , '5.7.1' , 'Rejected sender is not allowed for posting to this list')		
-#               self.log('Rejected ' + self.frAddr + ' not allowed for posting to ' + self.recip)		
-#               return lm.REJECT
-#            # This solution is crap and does not work with SPF"
-#            if 'testdl@mail.zetalliance.org' in self.fromHeader:
-#                self.log('Adding headers for ' + self.recip)
-#                self.chgHeader('From' , 'testdl@mail.zetalliance.org' , index=1)
-#                self.chgHeader('Reply-To' , 'testdl@mail.zetalliance.org' , index=1)
-#                self.chgHeader('Precedence','list', index=1)
-#                self.chgHeader('List-Id','testdl@mail.zetalliance.org', index=1)
-#                self.chgHeader('List-Post','<mailto:testdl@mail.zetalliance.org>', index=1)
-#                self.chgHeader('Errors-To','bounces@mail.zetalliance.org', index=1)
+            if 'true' in self.ListProcessed:
+                self.log('This is mail is OK')
 #                self.chgHeader('Sender','bounces@mail.zetalliance.org', index=1)
-#                return lm.CONTINUE
-#            else:
-            self.log('Rewrite email')
-            p = subprocess.Popen(["/opt/zimbra/common/sbin/sendmail", "-t","-f","bounces@mail.zetalliance.org","-F","testdl@mail.zetalliance.org","testdl@mail.zetalliance.org"], stdin=subprocess.PIPE)
-            headers = 'To: ' + 'testdl@mail.zetalliance.org' + '\r\n'
-            headers += 'From: ' + 'testdl@mail.zetalliance.org' + '\r\n'
-            headers += 'Reply-To: ' + 'testdl@mail.zetalliance.org' + '\r\n'
-            headers +='Precedence: list\r\n'
-            headers +='List-Id: ' + 'testdl@mail.zetalliance.org' + '\r\n'
-            headers +='List-Post: ' + '<mailto:testdl@mail.zetalliance.org>' + '\r\n'
-            headers +='Errors-To: ' + 'bounces@mail.zetalliance.org' + '\r\n'
-            headers +='Sender: ' + 'bounces@mail.zetalliance.org' + '\r\n'
-            p.communicate(headers + self.subjectHeader + self.fromContentType + self.MIMEVersionHeader + self.bodyTxt)
-            return lm.DISCARD
+#                self.addHeader('X-Barry-Debug','is continued mail')
+                return lm.CONTINUE
+            else:
+                self.log('Discard original email and make a new one')
+                p = subprocess.Popen(["/opt/zimbra/common/sbin/sendmail", "-t","-f","bounces@mail.zetalliance.org","-F","testdl@mail.zetalliance.org","testdl@mail.zetalliance.org"], stdin=subprocess.PIPE)
+                headers = 'To: ' + 'testdl@mail.zetalliance.org' + '\r\n'
+                headers += 'From: ' + 'testdl@mail.zetalliance.org' + '\r\n'
+                headers += 'Reply-To: ' + 'testdl@mail.zetalliance.org' + '\r\n'
+                headers +='Precedence: list\r\n'
+                headers +='List-Id: ' + 'testdl@mail.zetalliance.org' + '\r\n'
+                headers +='List-Post: ' + '<mailto:testdl@mail.zetalliance.org>' + '\r\n'
+                headers +='Errors-To: ' + 'bounces@mail.zetalliance.org' + '\r\n'
+                headers +='Sender: ' + 'bounces@mail.zetalliance.org' + '\r\n'
+                headers +='X-ZMList-Processed: ' + 'true' + '\r\n'
+                p.communicate(headers + self.subjectHeader + self.fromContentType + self.MIMEVersionHeader + self.bodyTxt)
+                return lm.DISCARD
         else:
             self.log('I continue this one')
         return lm.CONTINUE
