@@ -6,7 +6,7 @@ INSERTFILE="$(mktemp /tmp/mailinglists-add_dls.XXXXXXXX.sql)"
 #remove orphaned dl's
 echo "delete from list_properties where list_email not in (" > "${INSERTFILE}"
 /opt/zimbra/bin/zmprov -l gadl | sed "s/.*/'&'/" | paste -sd, >> "${INSERTFILE}"
-echo -n ")" >> "${INSERTFILE}"
+echo ");" >> "${INSERTFILE}"
 /opt/zimbra/bin/mysql mailinglists < "${INSERTFILE}"
 
 rm -f "${INSERTFILE}"
