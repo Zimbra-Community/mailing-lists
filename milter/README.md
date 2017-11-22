@@ -42,27 +42,12 @@ If it works, enable it for Zimbra:
      su - zimbra
      zmprov ms `zmhostname` zimbraMtaSmtpdMilters inet:127.0.0.1:5000
      zmprov ms `zmhostname` zimbraMtaNonSmtpdMilters inet:127.0.0.1:5000
-     zmprov ms `zmhostname` zimbraMilterBindPort 5000
      zmprov ms `zmhostname` zimbraMilterServerEnabled TRUE
-     zmmtactl reload
+     zmmtactl restart
+
+     postconf smtpd_milters
+     smtpd_milters = inet:127.0.0.1:5000, inet:127.0.0.1:7026
 
 Try sending some emails and:
 
      tail -f /var/log/zimbra_mailinglists_milter.log
-
-In case Zimbra says the MTA is not running:
-
-De above settings make Zimbra think it has the built-in Milter running as well, when in fact it is not. 
-At this time I do not know the proper way to configure this. One work-around is, commenting out a section in zmmilterctl:
-
-     nano /opt/zimbra/bin/zmmilterctl
-       status)
-         echo -n "Milter server is "
-     #    checkrunning
-     #    if [ $running = 0 ]; then
-     #      echo "not running."
-     #      exit 1
-     #    else
-           echo "running."
-           exit 0
-     #    fi
