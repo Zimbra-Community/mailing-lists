@@ -122,7 +122,7 @@ cp processor/out/artifacts/processor_jar/processor.jar /usr/local/sbin/processor
 rm -Rf $TMPFOLDER
 
 echo "Setting up cron"
-echo "* * * * * root bash -l -c '/usr/local/sbin/process_mailinglists' >/var/log/process_mailinglists_cron.log" > /etc/cron.d/process_mailinglists
+echo " * * * * * root /usr/local/sbin/process_mailinglists >> /var/log/process_mailinglists_cron.log" > /etc/cron.d/process_mailinglists
 
 echo "--------------------------------------------------------------------------------------------------------------
 Mailinglists installed successful
