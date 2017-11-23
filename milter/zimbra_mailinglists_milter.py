@@ -46,7 +46,7 @@ class MailingListsMilter(lm.ForkMixin , lm.MilterProtocol):
 
         #Needed to copy from source to new message
         if key == 'Subject':
-           self.subjectHeader = 'Subject: %s' % val + '\r\n'
+           self.subjectHeader = '%s' % val + '\r\n'
         if key == 'Content-Type':
            self.fromContentType = 'Content-Type: %s' % val + '\r\n'
         if key == 'MIME-Version':
@@ -75,11 +75,13 @@ class MailingListsMilter(lm.ForkMixin , lm.MilterProtocol):
                 headers += 'Reply-To: ' + 'testdl@mail.zetalliance.org' + '\r\n'
                 headers +='Precedence: list\r\n'
                 headers +='List-Id: ' + 'testdl@mail.zetalliance.org' + '\r\n'
+                headers +='List-Subscribe: ' + '<https://zimbra.example.com/service/extension/mailinglists/>' + '\r\n'
+                headers +='List-Unsubscribe: ' + '<https://zimbra.example.com/service/extension/mailinglists/>' + '\r\n'
                 headers +='List-Post: ' + '<mailto:testdl@mail.zetalliance.org>' + '\r\n'
                 headers +='Errors-To: ' + 'bounces@mail.zetalliance.org' + '\r\n'
                 headers +='Sender: ' + 'bounces@mail.zetalliance.org' + '\r\n'
                 headers +='X-ZMList-Processed: ' + 'true' + '\r\n'
-                p.communicate(headers + self.subjectHeader + self.fromContentType + self.MIMEVersionHeader + self.bodyTxt)
+                p.communicate(headers + 'Subject: [testdl] ' + self.subjectHeader + self.fromContentType + self.MIMEVersionHeader + self.bodyTxt)
                 return lm.DISCARD
         else:
             self.log('I continue this one')
