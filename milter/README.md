@@ -13,6 +13,10 @@ On the CLI:
      yum install python-pip supervisor python-pymilter sendmail
      pip install --upgrade pip     
      pip install python-libmilter
+     
+     systemctl disable sendmail
+     systemctl stop sendmail
+     systemctl mask sendmail
 
      mkdir - p /opt/zimbra_mailinglists_milter
      cd /opt/zimbra_mailinglists_milter
