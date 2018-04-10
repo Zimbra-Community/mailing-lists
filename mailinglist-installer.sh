@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Copyright (C) 2017 Barry de Graaff
+# Copyright (C) 2017-2018 Barry de Graaff
 # 
 # Bugs and feedback: https://github.com/Zimbra-Community/mailing-lists/issues
 # 
@@ -123,6 +123,15 @@ rm -Rf $TMPFOLDER
 
 echo "Setting up cron"
 echo " * * * * * root /usr/local/sbin/process_mailinglists >> /var/log/process_mailinglists_cron.log" > /etc/cron.d/process_mailinglists
+
+echo "Install daily backup via /etc/cron.daily in /mailinglists-backup"
+cat <<EOF > /etc/cron.daily/mailinglists-backup
+#!/bin/bash
+mkdir -p /mailinglists-backup
+rm /mailinglists-backup/mailinglists-`date +%w`.sql
+/opt/zimbra/common/bin/mysqldump -h 127.0.0.1 -P7306 -u'mailinglists' -p'${MAILINGLIST_PWD}' --add-drop-table mailinglists > /mailinglists-backup/mailinglists-`date +%w`.sql
+EOF
+chmod +rx /etc/cron.daily/mailinglists-backup
 
 echo "--------------------------------------------------------------------------------------------------------------
 Mailinglists installed successful
