@@ -52,6 +52,12 @@ If it works, enable it for Zimbra:
      postconf smtpd_milters
      smtpd_milters = inet:127.0.0.1:5000, inet:127.0.0.1:7026
 
+     #if you have no milter running at 7026, you can:
+     postconf -e 'smtpd_milters = inet:127.0.0.1:5000'
+
 Try sending some emails and:
 
      tail -f /var/log/zimbra_mailinglists_milter.log
+     tail -f /var/log/zimbra.log
+
+You can also run the milter without supervisord, stop supervisord and just run it like `/opt/zimbra_mailinglists_milter/zimbra_mailinglists_milter.py`.
