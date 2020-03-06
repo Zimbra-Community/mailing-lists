@@ -36,7 +36,7 @@ For CentOS 7:
 
 For Ubuntu 16.04:
 
-     wget https://raw.githubusercontent.com/Zimbra-Community/mailing-lists/master/milter/etc/daemon.ini -O /etc/supervisor/conf.d/zimbra_mailinglists_milter.ini
+     wget https://raw.githubusercontent.com/Zimbra-Community/mailing-lists/master/milter/etc/daemon.ini -O /etc/supervisor/conf.d/zimbra_mailinglists_milter.conf
 
 This is a Python3 fix for libmilter.py. It can be skipped if a version > 1.0.4 is pushed at https://pypi.org/project/pymilter/.
 
@@ -62,13 +62,17 @@ For CentOS 7:
 
 For Ubuntu 16.04:
 
-     systemctl start supervisor
+     systemctl restart supervisor
      systemctl enable supervisor
-     
+
+Then check if the milter service is running:
+
      tail -f /var/log/supervisor/supervisord.log
      netstat -tulpn | grep 5000 #should show the service
 
-If you made any typos, you will see them in the log, and there will be nothing listening on port 5000. Try again and issue `systemctl stop supervisord && systemctl start supervisord`.
+If you made any typos, you will see them in the log, and there will be nothing listening on port 5000. Try again and issue `systemctl stop supervisord && systemctl start supervisord` or `systemctl stop supervisor && systemctl start supervisor`. 
+
+**Please be advised that Milter is running on port 5000 and does not have authentication/encryption. Which means you must run it on a system with a host firewall, so you can reject incoming connections to this port.**
 
 If it works, enable it for Zimbra:
 
