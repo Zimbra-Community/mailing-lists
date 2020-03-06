@@ -11,16 +11,16 @@ For CentOS 7:
 
      yum install epel-release
      yum group install "Development Tools"
-     yum install python3-pip supervisor sendmail python3-devel sendmail-devel
+     yum install python2-pip supervisor sendmail python2-devel sendmail-devel
      
 For Ubuntu 16.04:
 
-     apt install build-essential python3-pip supervisor sendmail libmilter-dev
+     apt install build-essential python-pip supervisor sendmail libmilter-dev
 
 This part is the same for both distros:
 
-     pip3 install --upgrade pip     
-     pip3 install python-libmilter pymilter
+     pip2 install --upgrade pip     
+     pip2 install python-libmilter pymilter
      
      systemctl disable sendmail
      systemctl stop sendmail
@@ -37,11 +37,6 @@ For CentOS 7:
 For Ubuntu 16.04:
 
      wget https://raw.githubusercontent.com/Zimbra-Community/mailing-lists/master/milter/etc/daemon.ini -O /etc/supervisor/conf.d/zimbra_mailinglists_milter.conf
-
-This is a Python3 fix for libmilter.py. It can be skipped if a version > 1.0.4 is pushed at https://pypi.org/project/pymilter/.
-
-     wget https://raw.githubusercontent.com/Zimbra-Community/mailing-lists/master/milter/libmilter.py -O /opt/zimbra_mailinglists_milter/libmilter.py
-
 
 Then use your favorite editor (nano/vim) and open `/opt/zimbra_mailinglists_milter/zimbra_mailinglists_milter.py` look under `def eob(self , cmdDict)` and change the script to fit your needs. Please be aware that the indentation level of the statements is significant to Python.
 
