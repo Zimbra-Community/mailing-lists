@@ -7,17 +7,17 @@ The result is a clean message from the correct domain, and it should be able to 
  
 Its great, because the final message that goes to the recipients is still processed by Zimbra as a normal DL message.
 
-For CentOS7:
+For CentOS 7:
 
      yum install epel-release
      yum group install "Development Tools"
      yum install python3-pip supervisor sendmail python3-devel sendmail-devel
      
-For Ubuntu 16.04
+For Ubuntu 16.04:
 
      apt install build-essential python3-pip supervisor sendmail libmilter-dev
 
-Then the rest of the installation is the same for both distros:
+This part is the same for both distros:
 
      pip3 install --upgrade pip     
      pip3 install python-libmilter pymilter
@@ -29,7 +29,15 @@ Then the rest of the installation is the same for both distros:
      mkdir - p /opt/zimbra_mailinglists_milter
      cd /opt/zimbra_mailinglists_milter
      wget https://raw.githubusercontent.com/Zimbra-Community/mailing-lists/master/milter/zimbra_mailinglists_milter.py -O /opt/zimbra_mailinglists_milter/zimbra_mailinglists_milter.py
+
+For CentOS 7:
+
      wget https://raw.githubusercontent.com/Zimbra-Community/mailing-lists/master/milter/etc/daemon.ini -O /etc/supervisord.d/zimbra_mailinglists_milter.ini
+
+For Ubuntu 16.04:
+
+     wget https://raw.githubusercontent.com/Zimbra-Community/mailing-lists/master/milter/etc/daemon.ini -O /etc/supervisor/conf.d/zimbra_mailinglists_milter.ini
+
 
 Then use your favorite editor (nano/vim) and open `/opt/zimbra_mailinglists_milter/zimbra_mailinglists_milter.py` look under `def eob(self , cmdDict)` and change the script to fit your needs. Please be aware that the indentation level of the statements is significant to Python.
 
