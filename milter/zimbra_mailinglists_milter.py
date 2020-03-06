@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/python2
 # See also:
 # https://stuffivelearned.org/doku.php?id=programming:python:python-libmilter
 # https://github.com/crustymonkey/python-libmilter
@@ -21,7 +21,7 @@ class MailingListsMilter(lm.ForkMixin , lm.MilterProtocol):
 
     def log(self , msg):
         t = time.strftime('%H:%M:%S')
-        print('[%s] %s' % (t , msg))
+        print '[%s] %s' % (t , msg)
         sys.stdout.flush()
 
     @lm.noReply
@@ -104,10 +104,10 @@ def runMailingListsMilter():
     try:
         # run it
         f.run()
-    except Exception as e:
+    except Exception , e:
         f.close()
-        print('EXCEPTION OCCURED: %s' % e, file=sys.stderr)
-        traceback.print_tb(sys.exc_info()[2])
+        print >> sys.stderr , 'EXCEPTION OCCURED: %s' % e
+        traceback.print_tb(sys.exc_traceback)
         sys.exit(3)
 
 if __name__ == '__main__':
