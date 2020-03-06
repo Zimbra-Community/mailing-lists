@@ -7,12 +7,20 @@ The result is a clean message from the correct domain, and it should be able to 
  
 Its great, because the final message that goes to the recipients is still processed by Zimbra as a normal DL message.
 
-On the CLI:
+For CentOS7:
 
      yum install epel-release
-     yum install python-pip supervisor python-pymilter sendmail
-     pip install --upgrade pip     
-     pip install python-libmilter
+     yum group install "Development Tools"
+     yum install python3-pip supervisor sendmail python3-devel sendmail-devel
+     
+For Ubuntu 16.04
+
+     apt install build-essential python3-pip supervisor sendmail libmilter-dev
+
+Then the rest of the installation is the same for both distros:
+
+     pip3 install --upgrade pip     
+     pip3 install python-libmilter pymilter
      
      systemctl disable sendmail
      systemctl stop sendmail
