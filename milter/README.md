@@ -54,8 +54,17 @@ While Zimbra comes with a built-in sendmail, it's configuration cannot be altere
 Enable and start the service.
 
      chmod +rx /opt/zimbra_mailinglists_milter/zimbra_mailinglists_milter.py
+
+For CentOS 7:
+
      systemctl start supervisord 
      systemctl enable supervisord
+
+For Ubuntu 16.04:
+
+     systemctl start supervisor
+     systemctl enable supervisor
+     
      tail -f /var/log/supervisor/supervisord.log
      netstat -tulpn | grep 5000 #should show the service
 
