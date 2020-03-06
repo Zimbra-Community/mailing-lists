@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python3
 # See also:
 # https://stuffivelearned.org/doku.php?id=programming:python:python-libmilter
 # https://github.com/crustymonkey/python-libmilter
