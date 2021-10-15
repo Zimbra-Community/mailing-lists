@@ -4,10 +4,6 @@ Expand upon Zimbra's distribution lists feature to work more like a mailing list
 
 Read the https://github.com/Zimbra-Community/mailing-lists/wiki on how to enable DDOS protection, how to set-up appropriate e-mail headers and enforce posting restrictions.
 
-If you find Zimbra Mailing Lists useful and want to support its continued development, you can make donations via:
-- PayPal: info@barrydegraaff.tk
-- Bank transfer: IBAN NL55ABNA0623226413 ; BIC ABNANL2A
-
 Designed for Zimbra version 8.7.
 
 Bugs and feedback: https://github.com/Zimbra-Community/mailing-lists/issues
