@@ -8,8 +8,6 @@ Designed for Zimbra version 8.7.
 
 Bugs and feedback: https://github.com/Zimbra-Community/mailing-lists/issues
 
-Report security issues to info@barrydegraaff.tk (PGP fingerprint: 97f4694a1d9aedad012533db725ddd156d36a2d0)
-
 ========================================================================
 
 ### Installing
