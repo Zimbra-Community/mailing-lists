@@ -61,25 +61,25 @@ class MailingListsMilter(lm.ForkMixin , lm.MilterProtocol):
         return lm.ACCEPT
 
     def eob(self , cmdDict):
-        if 'testdl@mail.zetalliance.org' in self.recip:
+        if "testdl@zm-zimbra9.barrydegraaff.tk" in self.recip:
             if 'true' in self.ListProcessed:
                 self.log('This is mail is OK')
-#                self.chgHeader('Sender','bounces@mail.zetalliance.org', index=1)
+#                self.chgHeader('Sender','bounces@zm-zimbra9.barrydegraaff.tk', index=1)
 #                self.addHeader('X-Barry-Debug','is continued mail')
                 return lm.CONTINUE
             else:
                 self.log('Discard original email and make a new one')
-                p = subprocess.Popen(["/usr/sbin/sendmail", "-t","-f","bounces@mail.zetalliance.org","-F","testdl@mail.zetalliance.org","testdl@mail.zetalliance.org"], stdin=subprocess.PIPE)
-                headers = 'To: ' + 'testdl@mail.zetalliance.org' + '\r\n'
-                headers += 'From: ' + 'testdl@mail.zetalliance.org' + '\r\n'
-                headers += 'Reply-To: ' + 'testdl@mail.zetalliance.org' + '\r\n'
+                p = subprocess.Popen(["/usr/sbin/sendmail", "-t","-f","bounces@zm-zimbra9.barrydegraaff.tk","-F","testdl@zm-zimbra9.barrydegraaff.tk","testdl@zm-zimbra9.barrydegraaff.tk"], stdin=subprocess.PIPE)
+                headers = 'To: ' + 'testdl@zm-zimbra9.barrydegraaff.tk' + '\r\n'
+                headers += 'From: ' + 'testdl@zm-zimbra9.barrydegraaff.tk' + '\r\n'
+                headers += 'Reply-To: ' + 'testdl@zm-zimbra9.barrydegraaff.tk' + '\r\n'
                 headers +='Precedence: list\r\n'
-                headers +='List-Id: ' + 'testdl@mail.zetalliance.org' + '\r\n'
+                headers +='List-Id: ' + 'testdl@zm-zimbra9.barrydegraaff.tk' + '\r\n'
                 headers +='List-Subscribe: ' + '<https://zimbra.example.com/service/extension/mailinglists/>' + '\r\n'
                 headers +='List-Unsubscribe: ' + '<https://zimbra.example.com/service/extension/mailinglists/>' + '\r\n'
-                headers +='List-Post: ' + '<mailto:testdl@mail.zetalliance.org>' + '\r\n'
-                headers +='Errors-To: ' + 'bounces@mail.zetalliance.org' + '\r\n'
-                headers +='Sender: ' + 'bounces@mail.zetalliance.org' + '\r\n'
+                headers +='List-Post: ' + '<mailto:testdl@zm-zimbra9.barrydegraaff.tk>' + '\r\n'
+                headers +='Errors-To: ' + 'bounces@zm-zimbra9.barrydegraaff.tk' + '\r\n'
+                headers +='Sender: ' + 'bounces@zm-zimbra9.barrydegraaff.tk' + '\r\n'
                 headers +='X-ZMList-Processed: ' + 'true' + '\r\n'
                 p.communicate(headers + 'Subject: [testdl] ' + self.subjectHeader + self.fromContentType + self.MIMEVersionHeader + self.bodyTxt)
                 return lm.DISCARD
