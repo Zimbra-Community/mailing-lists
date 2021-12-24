@@ -162,6 +162,7 @@ class myMilter(Milter.Base):
             del msg['List-Subscribe']
             del msg['List-Unsubscribe']
             del msg['List-Post']
+            del msg['DKIM-Signature']
             del msg['Errors-To']
             del msg['Sender']
             del msg['Subject']
