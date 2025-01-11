@@ -1,5 +1,7 @@
-Zimbra Mailing Lists (beta)
+~Zimbra Mailing Lists (beta)~
 ==========
+**This Zimlet is deprecated and will not be supported** 
+
 Expand upon Zimbra's distribution lists feature to work more like a mailing list. This project will add a public subscription page to your Zimbra server allowing people to (un)subscribe from selected distribution lists. You can configure what DL's to use from the Admin UI. Also you can modify the theme and confirmation message text from the admin UI.
 
 Read the https://github.com/Zimbra-Community/mailing-lists/wiki on how to enable DDOS protection, how to set-up appropriate e-mail headers and enforce posting restrictions.
